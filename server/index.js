@@ -11,12 +11,12 @@ import salesRoutes from './routes/sales.js';
 import managementRoutes from './routes/management.js';
 
 /* DATA IMPORT */
-import User from './models/User.js';
-import Product from './models/Product.js';
-import ProductStat from './models/ProductStat.js';
-import Transaction from './models/Transaction.js';
-import OverallStats from './models/OverallStats.js';
-import {dataUser,dataProduct, dataProductStat, dataTransaction, dataOverallStat} from './data/index.js';
+// import User from './models/User.js';
+// import Product from './models/Product.js';
+// import ProductStat from './models/ProductStat.js';
+// import Transaction from './models/Transaction.js';
+// import OverallStats from './models/OverallStats.js';
+// import {dataUser,dataProduct, dataProductStat, dataTransaction, dataOverallStat} from './data/index.js';
 
 /* CONFIGURATION */
 const app = express();
@@ -28,8 +28,6 @@ app.use(morgan('common'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
-
-
 
 /* ROUTES */
 app.use('/client', clientRoutes);

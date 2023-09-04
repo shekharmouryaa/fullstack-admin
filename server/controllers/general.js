@@ -1,7 +1,7 @@
 import User from "../models/User.js";
 import Transaction from "../models/Transaction.js";
 import OverallStats from "../models/OverallStats.js";
-
+import mongoose from 'mongoose';
 
 export const getUsers = async (req, res) => {
     try {
@@ -16,6 +16,9 @@ export const getUser = async (req, res) => {
     try {
         const { id } = req.params;
         const user = await User.findById(id);
+        if (!user) {
+            return res.status(200).json({ message: "User not found" });
+        }
         res.status(200).json(user);
     } catch (error) {
         res.status(404).json({ message: error.message });
@@ -27,6 +30,24 @@ export const addUser = async (req, res) => {
     try {
         await user.save();
         res.status(201).json(user);
+    } catch (error) {
+        res.status(409).json({ message: error.message });
+    }
+}
+
+export const deleteUser = async (req, res) => {
+        const { id } = req.params;
+    try {
+          if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ message: "Invalid user ID" });
+        }
+        // const user = await User.findByIdAndRemove(id); // return user
+        const user = await User.deleteOne( { _id: id }); // doesn't return user
+       
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        res.status(200).json({ message: "User deleted successfully", user : user });
     } catch (error) {
         res.status(409).json({ message: error.message });
     }
