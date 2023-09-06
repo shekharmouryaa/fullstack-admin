@@ -53,6 +53,24 @@ export const deleteUser = async (req, res) => {
     }
 }
 
+export const updateUser = async (req, res) => {
+    const { id } = req.params;
+    try {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ message: "Invalid user ID" });
+        }
+        const user = await User.updateOne({ _id: id }, { $set: req.body });
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        res.status(200).json({ message: "User updated successfully", user: user });
+    } catch (error) {
+        res.status(409).json({ message: error.message });
+    }
+}
+
+
 export const getDashboardStats = async (req, res) => {
 
     try {

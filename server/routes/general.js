@@ -1,12 +1,13 @@
 import express from 'express';
-import {getUsers,getUser,addUser, getDashboardStats, deleteUser} from '../controllers/general.js';
+import {getUsers,getUser,addUser, getDashboardStats, deleteUser,updateUser} from '../controllers/general.js';
 
 const router = express.Router();
 // USERS ROUTES
 router.get('/users', getUsers);
 router.get('/user/:id', getUser);
-router.post('/user', addUser);
-router.delete('/user/:id', deleteUser);
+router.post('/user/add', addUser);
+router.delete('/user/delete/:id', deleteUser);
+router.put('/user/update/:id', updateUser);
 
 // DASHBOARD ROUTES
 router.get('/dashboard', getDashboardStats);
