@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import Employees from '../models/Employees.js';
-
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 export const getEmployees = async (req, res) => {
     try {
         const allemployees = await Employees.find({});
@@ -67,5 +68,37 @@ export const updateEmployee = async (req, res) => {
         res.status(200).json({ message: "User updated successfully", user: user });
     } catch (error) {
         res.status(409).json({ message: error.message });
+    }
+}
+
+export const loginEmployee = async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        // 1. Validate user input
+        if (!email || !password) {
+            return res.status(400).json({ message: "Please provide both email and password." });
+        }
+
+        // 2. Find the user by email in the MongoDB database
+        const existingEmployee = await Employees.findOne({ email });
+
+        if (!existingEmployee) {
+            return res.status(404).json({ message: "Employee not found with this email." });
+        }
+
+        // 3. Compare the provided password with the hashed password stored in the database
+        const isPasswordCorrect = password === existingEmployee.password
+
+        if (!isPasswordCorrect) {
+            return res.status(401).json({ message: "Invalid credentials." });
+        }
+
+        // 4. Generate a JWT token
+        const token = jwt.sign({ email: existingEmployee.email, id: existingEmployee._id }, 'your_secret_key', { expiresIn: '30d' });
+
+        // 5. Send the token in the response
+        res.status(200).json({ employee: existingEmployee, token });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error' });
     }
 }
