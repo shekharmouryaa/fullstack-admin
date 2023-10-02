@@ -22977,3 +22977,15 @@ export const dataAffiliateStat = [
     },
   ];
   
+  export const employeesData = [
+    {
+      _id: "63701cc1f03239d40b000049",
+      name: "Karlie",
+      email: "ksorby8b@altervista.org",
+      password: "yiMyjbHk",
+      city: "Dao",
+      occupation: "Social Worker",
+      phoneNumber: "1371356593",
+    }
+  ];
+  
