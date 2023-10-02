@@ -4,7 +4,7 @@ import Employees from '../models/Employees.js';
 export const getEmployees = async (req, res) => {
     try {
         const allemployees = await Employees.find({});
-        res.status(200).json({employees : allemployees , status : true , total : users.length});
+        res.status(200).json({employees : allemployees , status : true , total : allemployees.length});
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
