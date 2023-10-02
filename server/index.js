@@ -12,11 +12,12 @@ import managementRoutes from './routes/management.js';
 
 /* DATA IMPORT */
 // import User from './models/User.js';
+// import Employee from './models/Employees.js';
 // import Product from './models/Product.js';
 // import ProductStat from './models/ProductStat.js';
 // import Transaction from './models/Transaction.js';
 // import OverallStats from './models/OverallStats.js';
-// import {dataUser,dataProduct, dataProductStat, dataTransaction, dataOverallStat} from './data/index.js';
+// import {dataUser,dataProduct, dataProductStat, dataTransaction, dataOverallStat, employeesData} from './data/index.js';
 
 /* CONFIGURATION */
 const app = express();
@@ -52,5 +53,7 @@ mongoose.connect(process.env.MONGO_URL, {
         //  Transaction.insertMany(dataTransaction)
 
         // OverallStats.insertMany(dataOverallStat)
+
+        // Employee.insertMany(employeesData)
     });
 }).catch(err => console.log(err));
